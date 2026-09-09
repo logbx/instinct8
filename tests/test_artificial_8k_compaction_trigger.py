@@ -57,6 +57,7 @@ def test_should_compact_above_threshold():
     assert should_compact(above_threshold_text, budget)
 
 
+@pytest.mark.integration
 def test_codex_strategy_renders_reconstructed_prompt():
     """Test that Codex strategy can render reconstructed prompts."""
     strategy = StrategyB_CodexCheckpoint(system_prompt="You are a helpful assistant.")
@@ -83,6 +84,7 @@ def test_codex_strategy_renders_reconstructed_prompt():
     assert len(lines) == 5  # system + 3 turns + user message
 
 
+@pytest.mark.integration
 def test_codex_strategy_skips_compression_when_below_budget():
     """Test that Codex strategy skips compression when below token budget."""
     # Create a budget with very high threshold
@@ -112,6 +114,7 @@ def test_codex_strategy_skips_compression_when_below_budget():
     assert "System: You are a helpful assistant." in result
 
 
+@pytest.mark.integration
 def test_codex_strategy_compresses_when_above_budget():
     """Test that Codex strategy compresses when above token budget."""
     # Create a budget with very low threshold to force compression

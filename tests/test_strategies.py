@@ -10,10 +10,12 @@ class TestCompressionStrategyBase:
     def test_turn_dataclass(self):
         """Test Turn dataclass creation."""
         turn = Turn(
+            id=1,
             role="user",
             content="Hello, world!",
             timestamp=None,
         )
+        assert turn.id == 1
         assert turn.role == "user"
         assert turn.content == "Hello, world!"
 
@@ -31,12 +33,12 @@ class TestCodexStrategy:
         from strategies.strategy_b_codex import StrategyB_CodexCheckpoint
         assert StrategyB_CodexCheckpoint is not None
 
+    @pytest.mark.integration
     def test_create_strategy(self):
         """Test strategy creation."""
         from strategies.strategy_b_codex import create_codex_strategy
         strategy = create_codex_strategy(
             system_prompt="You are a helpful assistant.",
-            model="gpt-4o-mini",
         )
         assert strategy is not None
         assert strategy.name() == "Strategy B - Codex-Style Checkpoint"
@@ -50,6 +52,7 @@ class TestNaiveStrategy:
         from strategies.strategy_a_naive import StrategyA_NaiveSummarization
         assert StrategyA_NaiveSummarization is not None
 
+    @pytest.mark.integration
     def test_create_strategy(self):
         """Test strategy creation."""
         from strategies.strategy_a_naive import create_naive_strategy
@@ -57,6 +60,7 @@ class TestNaiveStrategy:
         assert strategy is not None
         assert strategy.name() == "Strategy A - Naive Summarization"
 
+    @pytest.mark.integration
     def test_initialize(self):
         """Test strategy initialization."""
         from strategies.strategy_a_naive import StrategyA_NaiveSummarization
@@ -77,6 +81,7 @@ class TestNaiveStrategy:
         assert strategy.original_goal == "Test goal"
         assert strategy.constraints == ["Constraint 1", "Constraint 2"]
 
+    @pytest.mark.integration
     def test_update_goal_noop(self):
         """Test that update_goal is a no-op (doesn't track goal updates)."""
         from strategies.strategy_a_naive import StrategyA_NaiveSummarization
@@ -95,6 +100,7 @@ class TestNaiveStrategy:
         # Original goal should still be stored (but not used)
         assert strategy.original_goal == "Original goal"
 
+    @pytest.mark.integration
     def test_compress_summarizes_all(self):
         """Test that compress summarizes all context without protection."""
         from strategies.strategy_a_naive import StrategyA_NaiveSummarization
@@ -129,6 +135,7 @@ class TestNaiveStrategy:
         assert "Test goal" not in result
         assert "Constraint 1" not in result
 
+    @pytest.mark.integration
     def test_compress_empty_context(self):
         """Test compress with empty context."""
         from strategies.strategy_a_naive import StrategyA_NaiveSummarization
@@ -145,6 +152,7 @@ class TestNaiveStrategy:
         assert "Previous conversation summary:" in result
         assert "(No previous conversation)" in result
 
+    @pytest.mark.integration
     def test_always_compresses(self):
         """Test that strategy always compresses (no token budget checking)."""
         from strategies.strategy_a_naive import StrategyA_NaiveSummarization

@@ -189,6 +189,7 @@ class TestTemplateIntegration:
             assert second_salience_count >= first_salience_count
 
 
+@pytest.mark.integration
 class TestEvaluationHarnessIntegration:
     """Tests for integration with evaluation harness."""
     
