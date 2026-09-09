@@ -23,12 +23,13 @@ Strategy F makes goal protection explicit and first-class.
 import os
 import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Protocol
+from typing import Any, Dict, List, Optional, Protocol, TYPE_CHECKING
 from datetime import datetime
 
 from .strategy_base import CompressionStrategy
-from evaluation.token_budget import TokenBudget, should_compact, BUDGET_8K
-from evaluation.goal_tracking import detect_goal_shift_in_message, extract_new_goal_from_message
+
+if TYPE_CHECKING:
+    from evaluation.token_budget import TokenBudget
 
 
 @dataclass
@@ -138,7 +139,7 @@ class StrategyF_ProtectedCore(CompressionStrategy):
         system_prompt: str = "",
         model: Optional[str] = None,
         backend: str = "auto",
-        token_budget: Optional[TokenBudget] = None,
+        token_budget: Optional["TokenBudget"] = None,
         keep_recent_turns: int = 3,
     ):
         """
@@ -152,11 +153,27 @@ class StrategyF_ProtectedCore(CompressionStrategy):
                          Defaults to 8K budget if not provided.
             keep_recent_turns: Number of recent turns to keep raw (default: 3)
         """
-        self.client = _create_llm_client(backend=backend, model=model)
+        from evaluation.token_budget import BUDGET_8K
+        
+        self._client: Optional[LLMClient] = None
+        self._backend = backend
+        self._model = model
         self.system_prompt = system_prompt
         self.token_budget = token_budget or BUDGET_8K
         self.keep_recent_turns = keep_recent_turns
         self.protected_core: Optional[ProtectedCore] = None
+    
+    @property
+    def client(self) -> LLMClient:
+        """Lazy client property - only creates LLM client when first accessed."""
+        if self._client is None:
+            self._client = _create_llm_client(backend=self._backend, model=self._model)
+        return self._client
+    
+    @client.setter
+    def client(self, value: LLMClient) -> None:
+        """Allow setting client directly (for testing with mocks)."""
+        self._client = value
     
     def initialize(self, original_goal: str, constraints: List[str]) -> None:
         """
@@ -367,6 +384,8 @@ class StrategyF_ProtectedCore(CompressionStrategy):
         2. Detect constraint changes (budget, timeline, etc.) and update ProtectedCore
         3. Extract important technical decisions from turns and add to ProtectedCore
         """
+        from evaluation.goal_tracking import detect_goal_shift_in_message, extract_new_goal_from_message
+        
         if self.protected_core is None:
             return
         
@@ -460,12 +479,12 @@ class StrategyF_ProtectedCore(CompressionStrategy):
         self._detect_and_update_goal_shifts(to_compress)
 
         reconstructed = self.render_reconstructed_prompt(to_compress)
-        from evaluation.token_budget import estimate_tokens
+        from evaluation.token_budget import estimate_tokens, should_compact
         estimated_tokens = estimate_tokens(reconstructed)
         
         if not should_compact(reconstructed, self.token_budget):
             self.log(f"Skipping compression - prompt tokens ({estimated_tokens} estimated) below budget ({self.token_budget.trigger_tokens})")
-            return reconstructed
+            return self._format_context_with_protected_core("", to_compress)
 
         self.log(f"Compressing - prompt tokens ({estimated_tokens} estimated) exceed budget ({self.token_budget.trigger_tokens})")
 
