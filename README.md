@@ -330,7 +330,7 @@ Rubric score for whether agent's behavior aligns with original goal when tested.
 
 ### Strategy F: Protected Core + Goal Re-assertion (Novel) 🚧
 
-**Status**: To be implemented
+**Status**: Implemented (`strategies/strategy_f_protected_core.py`)
 
 **Design**:
 - Stores original goal and constraints in protected object
@@ -417,5 +417,4 @@ This is a capstone research project. For questions or collaboration, please open
 
 ---
 
-**Status**: Baseline established ✅ | Strategy F implementation in progress 🚧
-
+**Status**: Baseline established ✅ | Strategy F Protected Core implemented ✅
