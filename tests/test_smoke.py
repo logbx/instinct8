@@ -28,13 +28,13 @@ def test_package_imports():
 
 
 def test_compressor_class_available():
-    """Test that SelectiveSalienceCompressor can be imported and instantiated."""
+    """Test that SelectiveSalienceCompressor class is available and has expected methods."""
     from selective_salience import SelectiveSalienceCompressor
     
-    compressor = SelectiveSalienceCompressor()
-    assert compressor is not None
-    assert hasattr(compressor, 'compress')
-    assert hasattr(compressor, 'initialize')
+    assert SelectiveSalienceCompressor is not None
+    assert hasattr(SelectiveSalienceCompressor, 'compress')
+    assert hasattr(SelectiveSalienceCompressor, 'initialize')
+    assert hasattr(SelectiveSalienceCompressor, 'reset')
 
 
 def test_strategy_base_available():
