@@ -328,7 +328,7 @@ Rubric score for whether agent's behavior aligns with original goal when tested.
 - Drift events: **4 of 10** compressions
 - Goal coherence: **80% → 20%** (worst case)
 
-### Strategy F: Protected Core + Goal Re-assertion (Novel) 🚧
+### Strategy F: Protected Core + Goal Re-assertion (Novel) ✅
 
 **Status**: Implemented (`strategies/strategy_f_protected_core.py`)
 
