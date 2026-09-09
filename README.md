@@ -103,15 +103,10 @@ instinct8/
 | Branch | Purpose | Status |
 |--------|---------|--------|
 | `main` | Production — Python-based selective salience | Active, v0.4.2, on PyPI |
-| `feature/package-selective-salience` | PyPI packaging | Partially merged |
-| `feature/pr01-selective-salience` | PR#01 enhancements, presentations | Feature branch |
-| `feature/strategy-i-hybrid-implementation` | Strategy I (A-MEM + Protected Core) | Feature branch |
-| `feature/h-mem` | Hierarchical Memory (H-MEM) implementation | Feature branch |
-| `feature/instinct8-goal-preservation` | Goal preservation framework | Merged |
-| `sfhm` | Rust-only backend, Stateless Functional Hierarchical Memory | Experimental |
-| `graphrag-rs` | GraphRAG memory + MCP server integration | Experimental, ~30 commits ahead |
 
-See [versions/](versions/) for detailed descriptions of each product variant.
+Remote branches have been cleaned up after merging. Historical feature branches (`feature/package-selective-salience`, `feature/pr01-selective-salience`, `feature/strategy-i-hybrid-implementation`, `feature/h-mem`, `feature/instinct8-goal-preservation`, `sfhm`, `graphrag-rs`) are no longer on the remote.
+
+See [versions/](versions/) for detailed descriptions of product variant explorations.
 
 ## Quick Start
 
@@ -186,7 +181,7 @@ Restart Claude Code and you'll have access to:
 
 **Note:** If `pip install instinct8-mcp` fails, the package may not be published yet. Install from source:
 ```bash
-git clone https://github.com/LoganLiangMay/instinct8.git
+git clone https://github.com/logbx/instinct8.git
 cd instinct8/mcp_server && pip install -e .
 ```
 
@@ -194,7 +189,7 @@ cd instinct8/mcp_server && pip install -e .
 
 For development or latest features:
 ```bash
-git clone https://github.com/LoganLiangMay/instinct8.git
+git clone https://github.com/logbx/instinct8.git
 cd instinct8
 git submodule update --init
 
@@ -314,7 +309,42 @@ Rubric score for whether agent's behavior aligns with original goal when tested.
 
 ## Compression Strategies
 
-### Strategy B: Codex-Style Checkpoint (Baseline) ✅
+### Implemented Strategies
+
+The following strategies are currently implemented and available:
+
+- **Strategy A**: Naive Summarization ✅  
+  `strategies/strategy_a_naive.py` — Simple LLM summarization baseline with no goal protection
+
+- **Strategy B**: Codex-Style Checkpoint (Baseline) ✅  
+  `strategies/strategy_b_codex.py` — StrategyB_CodexCheckpoint  
+  Mirrors OpenAI Codex's compaction algorithm (summarizes middle turns, preserves system prompt)
+
+- **Strategy D**: A-MEM Style Agentic Memory ✅  
+  `strategies/strategy_d_amem.py` — StrategyD_AMemStyle  
+  Hybrid retrieval (BM25 + semantic embeddings), memory consolidation and evolution
+
+- **Strategy F**: Protected Core + Goal Re-assertion (Novel) ✅  
+  `strategies/strategy_f_protected_core.py` — StrategyF_ProtectedCore  
+  Explicit goal protection via first-class ProtectedCore object (never compressed, always re-asserted)
+
+- **Strategy G**: Hybrid GraphRAG + Vector ✅  
+  `strategies/strategy_g_hybrid.py` — StrategyG_Hybrid  
+  Knowledge graph + vector embeddings for structured and semantic retrieval
+
+- **Strategy H**: Keyframe Compression ✅  
+  `strategies/strategy_h_keyframe.py` — StrategyH_Keyframe  
+  Periodic goal snapshots with aggressive inter-keyframe compression
+
+- **Strategy H**: Selective Salience (Agent-as-Judge) ✅  
+  `strategies/strategy_h_selective_salience.py` — SelectiveSalienceStrategy  
+  Model-judged salience extraction with semantic deduplication
+
+- **Strategy I**: A-MEM + Protected Core Hybrid ✅  
+  `strategies/strategy_i_hybrid_amem_protected.py` — StrategyI_AMemProtectedCore  
+  Combines Strategy D memory recall with Strategy F goal protection
+
+### Strategy B: Baseline Results
 
 **Implementation**: `strategies/strategy_b_codex.py`
 
@@ -328,9 +358,9 @@ Rubric score for whether agent's behavior aligns with original goal when tested.
 - Drift events: **4 of 10** compressions
 - Goal coherence: **80% → 20%** (worst case)
 
-### Strategy F: Protected Core + Goal Re-assertion (Novel) ✅
+### Strategy F: Design Notes
 
-**Status**: Implemented (`strategies/strategy_f_protected_core.py`)
+**Status**: Implemented and hardened (`strategies/strategy_f_protected_core.py`)
 
 **Design**:
 - Stores original goal and constraints in protected object
@@ -338,13 +368,9 @@ Rubric score for whether agent's behavior aligns with original goal when tested.
 - Re-asserts goal after every compression
 - Expected: **>95% goal coherence** maintained
 
-### Other Strategies (Planned)
+### Missing Strategies
 
-- Strategy A: No compression (control)
-- Strategy C: Simple truncation
-- Strategy D: Semantic chunking
-- Strategy E: Hierarchical summarization
-- Strategy G: Adaptive compression
+Strategies C (simple truncation) and E (hierarchical summarization) are referenced in research documentation but not yet implemented in the codebase.
 
 ## Baseline Results Summary
 
@@ -417,4 +443,4 @@ This is a capstone research project. For questions or collaboration, please open
 
 ---
 
-**Status**: Baseline established ✅ | Strategy F Protected Core implemented ✅
+**Status**: Baseline established ✅ | 8 compression strategies implemented ✅
