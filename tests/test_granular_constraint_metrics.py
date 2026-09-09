@@ -55,12 +55,14 @@ class TestGranularConstraintMetrics:
         from evaluation.granular_constraint_metrics import measure_granular_constraint_recall
         assert measure_granular_constraint_recall is not None
 
+    @pytest.mark.integration
     def test_empty_constraints(self):
         """Test that empty constraints return perfect scores."""
         metrics = measure_granular_constraint_recall([], "Some response")
         assert metrics.overall_recall == 1.0
         assert metrics.budget_recall == 1.0
 
+    @pytest.mark.integration
     def test_empty_response(self):
         """Test that empty response returns zero scores."""
         constraints = ["Budget: $10K", "Timeline: 2 weeks"]
@@ -69,6 +71,7 @@ class TestGranularConstraintMetrics:
         assert metrics.budget_recall == 0.0
         assert metrics.timeline_recall == 0.0
 
+    @pytest.mark.integration
     def test_category_scores_property(self):
         """Test that category_scores returns correct dictionary."""
         constraints = [

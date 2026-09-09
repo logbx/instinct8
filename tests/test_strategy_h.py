@@ -18,6 +18,7 @@ import json
 from strategies.strategy_h_selective_salience import SelectiveSalienceStrategy
 
 
+@pytest.mark.integration
 class TestCoreMethods:
     """Tests for core strategy methods."""
     
@@ -67,6 +68,7 @@ class TestCoreMethods:
         assert long_count > count
 
 
+@pytest.mark.integration
 class TestSalienceExtraction:
     """Tests for salience extraction with mocked API."""
     
@@ -158,6 +160,7 @@ class TestSalienceExtraction:
         assert result == []
 
 
+@pytest.mark.integration
 class TestBackgroundCompression:
     """Tests for background compression with mocked API."""
     
@@ -203,6 +206,7 @@ class TestBackgroundCompression:
         assert len(result) > 0
 
 
+@pytest.mark.integration
 class TestContextRebuilding:
     """Tests for context rebuilding."""
     
@@ -246,6 +250,7 @@ class TestContextRebuilding:
         assert "BACKGROUND SUMMARY" not in result
 
 
+@pytest.mark.integration
 class TestSalienceManagement:
     """Tests for salience management (deduplication, merging, prioritization)."""
     
@@ -368,6 +373,7 @@ class TestSalienceManagement:
         assert result == items
 
 
+@pytest.mark.integration
 class TestCompressMethod:
     """Tests for the main compress() method."""
     
@@ -471,6 +477,7 @@ class TestCompressMethod:
         assert second_salience_count >= first_salience_count
 
 
+@pytest.mark.integration
 class TestErrorHandling:
     """Tests for error handling and edge cases."""
     
