@@ -285,6 +285,8 @@ make test-quick
 # Run specific test suites
 python3 -m pytest tests/test_strategy_f_goal_drift.py -v
 python3 -m pytest tests/test_verification_harness.py -v
+python3 -m pytest tests/test_strategy_i_verification.py -v
+python3 -m pytest tests/test_strategy_h_verification.py -v
 ```
 
 **Strategy Verification Harness:**
