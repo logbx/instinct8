@@ -34,3 +34,9 @@ jobs:
       
       - name: Run Strategy F goal drift tests
         run: python3 -m pytest tests/test_strategy_f_goal_drift.py -v
+      
+      - name: Run Strategy I verification tests
+        run: python3 -m pytest tests/test_strategy_i_verification.py -v
+      
+      - name: Run Strategy H verification tests
+        run: python3 -m pytest tests/test_strategy_h_verification.py -v

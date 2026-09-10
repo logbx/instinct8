@@ -158,12 +158,23 @@ class StrategyVerificationHarness:
             # Restore
             tb.should_compact = original_should_compact
             
-            # Verify mock summary present (compression happened)
-            passed = "VERIFICATION_MOCK_SUMMARY" in result
+            # Verify compression happened - check that result is shorter than raw context
+            # Different strategies compress differently (Strategy F uses halo summary,
+            # Strategy I uses A-MEM memories, etc.)
+            raw_context_length = sum(len(turn.get("content", "")) for turn in context)
+            compressed_length = len(result)
+            
+            # Compression should either produce a summary OR be significantly shorter
+            has_summary = "VERIFICATION_MOCK_SUMMARY" in result
+            is_compressed = compressed_length < raw_context_length * 0.8  # At least 20% reduction
+            
+            passed = has_summary or is_compressed
             msg = "Over-budget compression correctly triggered" if passed else "Over-budget compression failed to trigger"
             
             self._record_result("token_budget_over_threshold", passed, msg, {
-                "compressed_result_length": len(result)
+                "compressed_result_length": len(result),
+                "raw_context_length": raw_context_length,
+                "compression_ratio": f"{compressed_length / raw_context_length:.2f}" if raw_context_length > 0 else "N/A"
             })
             return passed
             
