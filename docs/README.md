@@ -45,10 +45,7 @@ Development guides and technical setup.
 
 - `INSTALLATION.md` — Consolidated installation guide (all methods, troubleshooting)
 - `PUBLISHING.md` — PyPI publishing guide (build, test, publish)
-- `CODEX_FORK_PACKAGING.md` — Guide to repackaging/rebranding Codex CLI
 - `TESTING.md` — Testing documentation
-- `CODE_PROTECTION.md` — Code protection documentation
-- `PRIVATE_API_SETUP.md` — Private API setup
 
 ## Quick Navigation
 
