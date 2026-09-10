@@ -88,10 +88,7 @@ instinct8/
 └── docs/                        # Documentation
     ├── INSTALLATION.md          # Installation guide
     ├── PUBLISHING.md            # PyPI publishing guide
-    ├── CODEX_FORK_PACKAGING.md  # Codex repackaging guide
     ├── TESTING.md               # Testing documentation
-    ├── CODE_PROTECTION.md
-    ├── PRIVATE_API_SETUP.md
     ├── features/                # Feature documentation
     ├── presentations/           # Presentation materials
     ├── research/                # Research & analysis docs
