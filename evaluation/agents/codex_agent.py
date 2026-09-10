@@ -469,10 +469,6 @@ def create_codex_agent(
         from strategies.strategy_d_amem import StrategyD_AMemStyle
 
         strategy = StrategyD_AMemStyle(**kwargs)
-    elif strategy_name == "hybrid":
-        from strategies.strategy_g_hybrid import StrategyG_Hybrid
-
-        strategy = StrategyG_Hybrid(**kwargs)
     # else: no strategy (no compression)
 
     return CodexAgent(

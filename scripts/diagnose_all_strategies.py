@@ -22,7 +22,6 @@ from strategies import (
     StrategyB_CodexCheckpoint,
     StrategyD_AMemStyle,
     StrategyF_ProtectedCore,
-    StrategyG_Hybrid,
     StrategyH_Keyframe,
     StrategyI_AMemProtectedCore,
 )
@@ -214,7 +213,6 @@ def main():
         (StrategyB_CodexCheckpoint, "Strategy B - Codex Checkpoint", {}),
         (StrategyD_AMemStyle, "Strategy D - A-MEM Style", {}),
         (StrategyF_ProtectedCore, "Strategy F - Protected Core", {}),
-        (StrategyG_Hybrid, "Strategy G - Hybrid GraphRAG", {}),
         (StrategyH_Keyframe, "Strategy H - Keyframe Compression", {}),
         (StrategyI_AMemProtectedCore, "Strategy I - A-MEM + Protected Core", {}),
     ]
