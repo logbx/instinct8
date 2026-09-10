@@ -28,3 +28,9 @@ jobs:
       
       - name: Run quick tests
         run: make test-quick
+      
+      - name: Run verification harness
+        run: python3 -m pytest tests/test_verification_harness.py -v
+      
+      - name: Run Strategy F goal drift tests
+        run: python3 -m pytest tests/test_strategy_f_goal_drift.py -v

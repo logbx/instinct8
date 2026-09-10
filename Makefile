@@ -40,15 +40,15 @@ help:
 
 test:
 	@echo "Running all tests..."
-	pytest tests/ -v
+	python3 -m pytest tests/ -v
 
 test-quick:
 	@echo "Running quick tests (skipping integration)..."
-	pytest tests/ -v -x --tb=short -m "not integration"
+	python3 -m pytest tests/ -v -x --tb=short -m "not integration"
 
 test-integration:
 	@echo "Running integration tests (requires API keys)..."
-	pytest tests/ -v -m "integration"
+	python3 -m pytest tests/ -v -m "integration"
 
 # =============================================================================
 # QUICK EVALUATIONS (< 5 minutes)

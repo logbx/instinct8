@@ -276,6 +276,60 @@ make eval-hierarchical
 make eval-rigorous
 ```
 
+### Running Evals Locally
+
+The project includes comprehensive evaluation and verification tools:
+
+**Unit Tests (No API Keys Required):**
+```bash
+# Run all unit tests
+make test-quick
+
+# Run specific test suites
+python3 -m pytest tests/test_strategy_f_goal_drift.py -v
+python3 -m pytest tests/test_verification_harness.py -v
+```
+
+**Strategy Verification Harness:**
+
+The verification harness automatically validates compression strategies against critical properties:
+- Token budget edge cases (under/over threshold)
+- Protected core integrity (never lost)
+- Goal drift detection and tracking
+- Constraint preservation across compressions
+- Empty context handling
+
+```python
+from evaluation.strategy_verification import verify_strategy
+from strategies.strategy_f_protected_core import StrategyF_ProtectedCore
+
+# Run all verification checks
+report = verify_strategy(StrategyF_ProtectedCore)
+print(report.summary())
+
+# Detailed results
+from evaluation.strategy_verification import print_verification_report
+print_verification_report(report)
+```
+
+**Full Evaluation Pipeline (Requires API Keys):**
+```bash
+# Short template (12 turns, 2 compression points)
+python3 -m evaluation.harness \
+  --template templates/research-synthesis-001.json \
+  --trials 5 \
+  --output results/baseline_results.json
+
+# Long template (50 turns, 5 compression points)
+python3 -m evaluation.harness \
+  --template templates/research-synthesis-002-long.json \
+  --trials 5 \
+  --output results/baseline_long_results.json
+
+# View results
+cat results/baseline_long_results.json | jq '.aggregate_summary'
+```
+
 For complete documentation, see **[docs/TESTING.md](docs/TESTING.md)**.
 
 ## Metrics
