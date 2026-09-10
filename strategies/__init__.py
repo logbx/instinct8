@@ -18,7 +18,6 @@ from .strategy_a_naive import StrategyA_NaiveSummarization, create_naive_strateg
 from .strategy_b_codex import StrategyB_CodexCheckpoint, create_codex_strategy
 from .strategy_d_amem import StrategyD_AMemStyle, create_amem_strategy
 from .strategy_f_protected_core import StrategyF_ProtectedCore, create_protected_core_strategy
-from .strategy_g_hybrid import StrategyG_Hybrid, create_hybrid_strategy
 from .strategy_h_selective_salience import SelectiveSalienceStrategy
 from .strategy_h_keyframe import StrategyH_Keyframe, create_keyframe_strategy
 from .strategy_i_hybrid_amem_protected import StrategyI_AMemProtectedCore, create_amem_protected_strategy
@@ -53,9 +52,6 @@ __all__ = [
     # Strategy F - Protected Core + Goal Re-assertion (Novel)
     "StrategyF_ProtectedCore",
     "create_protected_core_strategy",
-    # Strategy G - Hybrid GraphRAG
-    # "StrategyG_Hybrid",  # from strategies.strategy_g_hybrid import StrategyG_Hybrid
-    # "create_hybrid_strategy",  # from strategies.strategy_g_hybrid import create_hybrid_strategy
     # Strategy H - Selective Salience Compression (Agent-as-Judge)
     # "SelectiveSalienceStrategy",  # from strategies.strategy_h_selective_salience import SelectiveSalienceStrategy
     # Strategy H - Keyframe Compression (alternative implementation)
