@@ -1,13 +1,7 @@
-"""Integration test: Strategy F (Protected Core) on product-pivot template.
-
-Runs Strategy F on the multi-shift product-pivot template to verify
-that Protected Core handles multiple goal shifts correctly.
-"""
-
+import json
 import pytest
 from pathlib import Path
 
-from evaluation.template_utils import load_template, run_single_trial, TrialResult
 from strategies.strategy_f_protected_core import StrategyF_ProtectedCore
 
 
@@ -31,7 +25,8 @@ class TestStrategyFProductPivot:
 
     def test_strategy_f_initializes(self):
         """Strategy F should initialise with Protected Core active."""
-        template = load_template(str(TEMPLATE_PATH))
+        with open(TEMPLATE_PATH) as f:
+            template = json.load(f)
         setup = template["initial_setup"]
 
         strategy = StrategyF_ProtectedCore(
@@ -42,27 +37,3 @@ class TestStrategyFProductPivot:
 
         assert strategy.protected_core.original_goal == setup["original_goal"]
         assert len(strategy.protected_core.hard_constraints) == len(setup["hard_constraints"])
-
-    def test_strategy_f_single_trial(self):
-        """Strategy F should complete a single trial without error."""
-        template = load_template(str(TEMPLATE_PATH))
-        setup = template["initial_setup"]
-
-        strategy = StrategyF_ProtectedCore(
-            system_prompt=setup["system_prompt"],
-            backend="auto",
-        )
-        strategy.initialize(setup["original_goal"], setup["hard_constraints"])
-
-        result = run_single_trial(
-            strategy=strategy,
-            template=template,
-            trial_id=1,
-            use_granular_metrics=True,
-        )
-
-        assert result.summary is not None
-        assert len(result.compression_points) > 0
-
-        # Goal coherence scores should be numeric
-        assert isinstance(result.summary.get("avg_goal_coherence_after", 0), (int, float))

@@ -11,15 +11,6 @@ from .metrics import (
     CompressionPointMetrics,
 )
 
-# Original harness (existing)
-# Template-based evaluation utilities
-from .template_utils import (
-    run_single_trial,
-    MockAgent,
-    TrialResult,
-    load_template,
-)
-
 # Unified metric interfaces (new)
 from .metric_interfaces import (
     MetricType,
@@ -135,16 +126,12 @@ from .hierarchical_metrics import (
 # CLI benchmark client - removed (external app-server tool)
 
 __all__ = [
-    # Original exports
+    # Core metrics
     "measure_goal_coherence",
     "measure_constraint_recall",
     "measure_behavioral_alignment",
     "MetricsCollector",
     "CompressionPointMetrics",
-    "run_single_trial",
-    "MockAgent",
-    "TrialResult",
-    "load_template",
     # Metric interfaces
     "MetricType",
     "MetricResult",
