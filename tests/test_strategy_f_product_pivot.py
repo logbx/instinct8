@@ -7,7 +7,7 @@ that Protected Core handles multiple goal shifts correctly.
 import pytest
 from pathlib import Path
 
-from evaluation.harness import load_template, run_single_trial, EvaluationResults
+from evaluation.template_utils import load_template, run_single_trial, TrialResult
 from strategies.strategy_f_protected_core import StrategyF_ProtectedCore
 
 

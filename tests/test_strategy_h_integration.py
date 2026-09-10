@@ -14,7 +14,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 from strategies.strategy_h_selective_salience import SelectiveSalienceStrategy
-from evaluation.harness import load_template, run_single_trial
+from evaluation.template_utils import load_template, run_single_trial
 
 
 class TestTemplateIntegration:

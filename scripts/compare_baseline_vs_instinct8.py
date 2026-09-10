@@ -12,7 +12,7 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from evaluation.harness import run_baseline_evaluation, EvaluationResults
+from evaluation.template_utils import load_template, run_single_trial, MockAgent, TrialResult
 from strategies.strategy_b_codex import StrategyB_CodexCheckpoint
 from strategies.strategy_f_protected_core import StrategyF_ProtectedCore
 
@@ -35,7 +35,7 @@ def run_comparison(
     print("=" * 70)
     
     # Temporarily modify the strategy creation to use baseline mode
-    from evaluation.harness import load_template, run_single_trial, MockAgent, MetricsCollector
+    from evaluation.metrics import MetricsCollector
     from dataclasses import dataclass, field
     from typing import List
     

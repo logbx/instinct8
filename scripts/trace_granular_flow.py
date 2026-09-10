@@ -79,7 +79,7 @@ except Exception as e:
 print("\n" + "=" * 70)
 print("STEP 4: TrialResult.to_dict()")
 print("=" * 70)
-from evaluation.harness import TrialResult
+from evaluation.template_utils import TrialResult
 
 granular_metrics = results.get("granular_constraint_metrics") if 'results' in locals() else None
 trial_result = TrialResult(

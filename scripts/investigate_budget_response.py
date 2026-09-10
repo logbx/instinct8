@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from strategies.strategy_b_codex import StrategyB_CodexCheckpoint
-from evaluation.harness import MockAgent, load_template
+from evaluation.template_utils import MockAgent, load_template
 from evaluation.metrics import _constraint_mentioned, _get_client
 from evaluation.token_budget import BUDGET_8K
 

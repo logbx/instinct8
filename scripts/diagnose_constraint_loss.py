@@ -19,7 +19,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from strategies.strategy_b_codex import StrategyB_CodexCheckpoint
-from evaluation.harness import MockAgent
+from evaluation.template_utils import MockAgent
 from evaluation.metrics import measure_constraint_recall, _constraint_mentioned, _get_client
 from evaluation.token_budget import BUDGET_8K
 

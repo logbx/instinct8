@@ -9,7 +9,7 @@ import os
 import pytest
 
 from strategies.strategy_b_codex import StrategyB_CodexCheckpoint
-from evaluation.harness import MockAgent, load_template
+from evaluation.template_utils import MockAgent, load_template
 from evaluation.metrics import _constraint_mentioned, _get_client
 from evaluation.token_budget import BUDGET_8K, estimate_tokens
 

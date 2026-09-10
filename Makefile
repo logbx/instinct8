@@ -23,10 +23,6 @@ help:
 	@echo "  make eval-compare      Compare all strategies (~15m)"
 	@echo "  make eval-rigorous     Publication-ready eval (~1hr)"
 	@echo ""
-	@echo "Binary Testing:"
-	@echo "  make eval-binary       Test real Codex binary (~10m)"
-	@echo "  make eval-appserver    App-server compaction eval (~5m)"
-	@echo ""
 	@echo "Combined:"
 	@echo "  make eval-all          Run test + eval-quick + eval-hierarchical"
 	@echo ""
@@ -85,22 +81,7 @@ eval-rigorous:
 # =============================================================================
 # BINARY TESTING (requires Codex CLI installed)
 # =============================================================================
-
-eval-binary:
-	@echo "Testing real Codex binary..."
-	python scripts/run_codex_cli_eval.py
-
-eval-binary-compare:
-	@echo "A/B testing Codex variants..."
-	@echo "Usage: python scripts/run_comparison_eval.py --name <variant-name>"
-
-eval-appserver:
-	@echo "Running app-server compaction evaluation..."
-	python scripts/run_appserver_eval.py
-
-eval-appserver-verbose:
-	@echo "Running app-server eval with verbose output..."
-	python scripts/run_appserver_eval.py --verbose --turns 15
+# Binary testing scripts removed in cleanup - use unified evaluation harness
 
 # =============================================================================
 # COMBINED RUNS

@@ -7,7 +7,7 @@ the hybrid strategy works correctly.
 import pytest
 from pathlib import Path
 
-from evaluation.harness import load_template, run_single_trial, EvaluationResults
+from evaluation.template_utils import load_template, run_single_trial, TrialResult
 from strategies.strategy_i_hybrid_amem_protected import StrategyI_AMemProtectedCore
 
 

@@ -7,7 +7,7 @@ when use_granular_metrics=True.
 import pytest
 
 from evaluation.metrics import MetricsCollector
-from evaluation.harness import load_template
+from evaluation.template_utils import load_template
 
 
 @pytest.mark.integration
