@@ -34,3 +34,7 @@ ENV/
 # API keys (if stored locally)
 *.key
 api_keys.txt
+
+# Evaluation results JSON
+results/*.json
+results/**/*.json
