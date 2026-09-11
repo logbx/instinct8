@@ -4,13 +4,12 @@ Basic usage example for Selective Salience Compression
 
 This example shows how to use Selective Salience Compression in a simple
 LLM agent conversation.
+
+Run after installing the package: pip install -e .
 """
 
 import os
 import sys
-
-# Add parent directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from selective_salience import SelectiveSalienceCompressor
 
