@@ -4,13 +4,12 @@ Codex Integration Example
 
 Shows how to use Codex with Selective Salience Compression instead of
 Codex's default compression.
+
+Run after installing the package: pip install -e .
 """
 
 import os
 import sys
-
-# Add parent directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from selective_salience import Instinct8Agent, create_instinct8_agent
 
