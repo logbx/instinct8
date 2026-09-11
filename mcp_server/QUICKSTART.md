@@ -165,7 +165,7 @@ echo '{"mcpServers": {"instinct8": {"command": "instinct8-mcp"}}}' > ~/.claude/c
 - **[Examples](examples/)** - See real-world usage patterns
 - **[Troubleshooting](TROUBLESHOOTING.md)** - Detailed problem solving
 - **[FAQ](FAQ.md)** - Common questions answered
-- **[Full Guide](../docs/CLAUDE_CODE_INTEGRATION.md)** - Complete documentation
+- **[Full Guide](README.md)** - Complete MCP server details
 
 ---
 

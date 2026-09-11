@@ -266,7 +266,6 @@ Reset agent state.
 This implementation is based on research evaluating context compression strategies for long-running LLM agents. For more details, see:
 
 - [Selective Salience Compression Paper](Selective%20Salience%20Compression.md)
-- [Evaluation Results](PR_PARTY/PR01_SELECTIVE_SALIENCE_COMPRESSION.md)
 
 ## License
 

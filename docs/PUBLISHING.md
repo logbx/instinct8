@@ -149,20 +149,7 @@ Set permissions: `chmod 600 ~/.pypirc`
 - [ ] Commands work: `instinct8 --help`, `instinct8-agent --help`
 - [ ] Imports work: `python3 -c "from selective_salience import Instinct8Agent"`
 
-## Homebrew Distribution
-
-### Using a Homebrew Tap
-
-1. Create repo: `instinct8-homebrew`
-2. Copy `Formula/instinct8.rb` to that repo
-3. Update SHA256: `shasum -a 256 dist/instinct8_agent-*.tar.gz`
-4. Users install with:
-   ```bash
-   brew tap jjjorgenson/instinct8
-   brew install instinct8
-   ```
-
-### Alternative: Recommend pipx
+## Alternative: Install via pipx
 
 ```bash
 pipx install instinct8-agent

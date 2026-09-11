@@ -76,15 +76,9 @@ instinct8/
 ├── examples/                    # Usage examples
 ├── scripts/                     # Evaluation & utility scripts
 ├── data/                        # External datasets
-├── Formula/                     # Homebrew formula
 ├── mcp_server/                  # MCP server for Claude Code integration
 ├── codex/                       # Codex source (git submodule, pinned to v0.98.0)
-├── versions/                    # Version variant descriptions
-│   ├── v1-core/                # Python selective salience (main)
-│   ├── v2-graphrag/            # GraphRAG + MCP server (graphrag-rs)
-│   └── v3-sfhm/               # Rust SFHM backend (sfhm)
 ├── archive/                     # Historical planning docs
-│   └── PR_PARTY/
 └── docs/                        # Documentation
     ├── INSTALLATION.md          # Installation guide
     ├── PUBLISHING.md            # PyPI publishing guide
@@ -102,8 +96,6 @@ instinct8/
 | `main` | Production — Python-based selective salience | Active, v0.4.2, on PyPI |
 
 Remote branches have been cleaned up after merging. Historical feature branches (`feature/package-selective-salience`, `feature/pr01-selective-salience`, `feature/strategy-i-hybrid-implementation`, `feature/h-mem`, `feature/instinct8-goal-preservation`, `sfhm`, `graphrag-rs`) are no longer on the remote.
-
-See [versions/](versions/) for detailed descriptions of product variant explorations.
 
 ## Quick Start
 
