@@ -4,10 +4,10 @@ Verifies that MetricsCollector produces granular_constraint_metrics
 when use_granular_metrics=True.
 """
 
+import json
 import pytest
 
 from evaluation.metrics import MetricsCollector
-from evaluation.harness import load_template
 
 
 @pytest.mark.integration
@@ -16,7 +16,8 @@ class TestGranularCollection:
 
     def test_granular_metrics_present(self):
         """Granular constraint metrics should appear in results."""
-        template = load_template("templates/research-synthesis-001.json")
+        with open("templates/research-synthesis-001.json") as f:
+            template = json.load(f)
         constraints = template["initial_setup"]["hard_constraints"]
 
         collector = MetricsCollector(
@@ -45,7 +46,8 @@ class TestGranularCollection:
 
     def test_granular_metrics_keys(self):
         """Each granular metric entry should have expected keys."""
-        template = load_template("templates/research-synthesis-001.json")
+        with open("templates/research-synthesis-001.json") as f:
+            template = json.load(f)
         constraints = template["initial_setup"]["hard_constraints"]
 
         collector = MetricsCollector(
