@@ -97,8 +97,6 @@ instinct8/
 
 Remote branches have been cleaned up after merging. Historical feature branches (`feature/package-selective-salience`, `feature/pr01-selective-salience`, `feature/strategy-i-hybrid-implementation`, `feature/h-mem`, `feature/instinct8-goal-preservation`, `sfhm`, `graphrag-rs`) are no longer on the remote.
 
-See [versions/](versions/) for detailed descriptions of product variant explorations.
-
 ## Quick Start
 
 ### Install Instinct8 Agent
