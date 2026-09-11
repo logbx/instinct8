@@ -63,14 +63,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 echo ""
-echo "Step 4: Calculate SHA256 for Homebrew formula:"
-echo "Run: shasum -a 256 dist/instinct8_agent-*.tar.gz"
-shasum -a 256 dist/instinct8_agent-*.tar.gz 2>/dev/null || echo "  (Distribution file not found)"
-
-echo ""
 echo "=== Publishing Complete ==="
-echo ""
-echo "Next steps:"
-echo "1. Update Formula/instinct8.rb with the SHA256 above"
-echo "2. Create instinct8-homebrew repo and add the formula"
-echo "3. Users can install with: brew tap jjjorgenson/instinct8 && brew install instinct8"

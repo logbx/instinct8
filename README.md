@@ -76,15 +76,9 @@ instinct8/
 ├── examples/                    # Usage examples
 ├── scripts/                     # Evaluation & utility scripts
 ├── data/                        # External datasets
-├── Formula/                     # Homebrew formula
 ├── mcp_server/                  # MCP server for Claude Code integration
 ├── codex/                       # Codex source (git submodule, pinned to v0.98.0)
-├── versions/                    # Version variant descriptions
-│   ├── v1-core/                # Python selective salience (main)
-│   ├── v2-graphrag/            # GraphRAG + MCP server (graphrag-rs)
-│   └── v3-sfhm/               # Rust SFHM backend (sfhm)
 ├── archive/                     # Historical planning docs
-│   └── PR_PARTY/
 └── docs/                        # Documentation
     ├── INSTALLATION.md          # Installation guide
     ├── PUBLISHING.md            # PyPI publishing guide
