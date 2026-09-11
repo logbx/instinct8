@@ -30,10 +30,7 @@ Research documents, analysis, and technical specifications.
 ### [presentations/](./presentations/)
 Presentation materials and diagrams.
 
-- `PRESENTATION_OUTLINE.md` — Presentation outline
-- `PRESENTATION_SHORT.md` — Short presentation version
-- `WHITEBOARD_DIAGRAM.md` — Whiteboard diagram documentation
-- `PIPELINE_DIAGRAM.md` — Pipeline architecture diagram
+- `PRESENTATION_SHORT.md` — Complete presentation with diagrams and evaluation results
 
 ### [development/](./development/)
 Development guides and technical setup.
