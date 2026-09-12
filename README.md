@@ -81,7 +81,6 @@ instinct8/
 ├── archive/                     # Historical planning docs
 └── docs/                        # Documentation
     ├── INSTALLATION.md          # Installation guide
-    ├── PUBLISHING.md            # PyPI publishing guide
     ├── TESTING.md               # Testing documentation
     ├── features/                # Feature documentation
     ├── presentations/           # Presentation materials
