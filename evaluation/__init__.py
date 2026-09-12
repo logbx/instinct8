@@ -98,15 +98,7 @@ from .baseline_strategies import (
 
 # Multi-run evaluation - integrated into unified_harness
 
-# Ablation studies (new)
-from .ablation_runner import (
-    AblationConfig,
-    AblationResult,
-    AblationStudyResults,
-    AblationRunner,
-    format_ablation_table,
-    format_grid_search_table,
-)
+# Ablation studies - removed (unused)
 
 # Codex CLI wrapper - removed (external tool not in-repo)
 
@@ -195,13 +187,6 @@ __all__ = [
     "SlidingWindowBaseline",
     "get_all_baselines",
     "get_baseline_by_name",
-    # Ablation studies
-    "AblationConfig",
-    "AblationResult",
-    "AblationStudyResults",
-    "AblationRunner",
-    "format_ablation_table",
-    "format_grid_search_table",
     # Hierarchical metrics
     "HierarchicalMetrics",
     "HierarchicalMetricsCalculator",
