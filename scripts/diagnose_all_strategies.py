@@ -22,7 +22,6 @@ from strategies import (
     StrategyB_CodexCheckpoint,
     StrategyD_AMemStyle,
     StrategyF_ProtectedCore,
-    StrategyH_Keyframe,
     StrategyI_AMemProtectedCore,
 )
 from strategies.strategy_base import CompressionStrategy
@@ -213,7 +212,6 @@ def main():
         (StrategyB_CodexCheckpoint, "Strategy B - Codex Checkpoint", {}),
         (StrategyD_AMemStyle, "Strategy D - A-MEM Style", {}),
         (StrategyF_ProtectedCore, "Strategy F - Protected Core", {}),
-        (StrategyH_Keyframe, "Strategy H - Keyframe Compression", {}),
         (StrategyI_AMemProtectedCore, "Strategy I - A-MEM + Protected Core", {}),
     ]
     
