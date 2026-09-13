@@ -86,10 +86,8 @@ def get_strategies() -> str:
                 "characteristics": {
                     "goal_protection": "Structural (Protected Core dataclass)",
                     "compression_target": "Conversation halo only",
-                    "goal_tracking": "Automatic shift detection",
-                    "decision_recording": "Key decisions preserved in core",
                 },
-                "best_for": "Tasks with evolving goals or strict constraint adherence",
+                "best_for": "Tasks requiring strict constraint adherence",
                 "sampling_calls_per_compression": 1,
             },
         ],

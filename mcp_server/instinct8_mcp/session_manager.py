@@ -11,47 +11,27 @@ from typing import Any
 
 
 @dataclass
-class Decision:
-    """A key decision recorded during the session."""
-
-    decision: str
-    rationale: str
-    timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
-
-
-@dataclass
 class ProtectedCore:
     """Goal + constraints that are NEVER compressed, only re-asserted."""
 
-    original_goal: str
-    current_goal: str
+    goal: str
     hard_constraints: list[str]
-    key_decisions: list[Decision] = field(default_factory=list)
     timestamp_updated: str = field(default_factory=lambda: datetime.now().isoformat())
 
     def render(self) -> str:
         """Render the protected core as a text block for context assembly."""
-        decisions_str = "\n".join(
-            f"  - {d.decision} (Rationale: {d.rationale})"
-            for d in self.key_decisions
-        ) if self.key_decisions else "  (none yet)"
-
         return (
             "PROTECTED CORE (AUTHORITATIVE - Never forget these):\n"
             "================================================\n"
-            f"Original Goal: {self.original_goal}\n"
-            f"Current Goal: {self.current_goal}\n"
+            f"Goal: {self.goal}\n"
             "\n"
             "Hard Constraints (MUST FOLLOW):\n"
             + "\n".join(f"  - {c}" for c in self.hard_constraints)
             + "\n\n"
-            "Key Decisions Made:\n"
-            f"{decisions_str}\n"
-            "\n"
             f"Last Updated: {self.timestamp_updated}\n"
             "================================================\n"
             "\n"
-            "INSTRUCTION: Always prioritize the CURRENT GOAL and HARD CONSTRAINTS above all else.\n"
+            "INSTRUCTION: Always prioritize the GOAL and HARD CONSTRAINTS above all else.\n"
             "If there's any ambiguity, refer back to this Protected Core as the source of truth."
         )
 
@@ -70,13 +50,8 @@ class SessionState:
         """Serialize session state for the session://current resource."""
         return {
             "protected_core": {
-                "original_goal": self.protected_core.original_goal,
-                "current_goal": self.protected_core.current_goal,
+                "goal": self.protected_core.goal,
                 "hard_constraints": self.protected_core.hard_constraints,
-                "key_decisions": [
-                    {"decision": d.decision, "rationale": d.rationale, "timestamp": d.timestamp}
-                    for d in self.protected_core.key_decisions
-                ],
             },
             "salience_set": self.salience_set,
             "compression_count": self.compression_count,
@@ -102,8 +77,7 @@ class SessionManager:
     def initialize(self, goal: str, constraints: list[str]) -> SessionState:
         """Create a new session with the given goal and constraints."""
         core = ProtectedCore(
-            original_goal=goal,
-            current_goal=goal,
+            goal=goal,
             hard_constraints=list(constraints),
         )
         self._session = SessionState(protected_core=core)
@@ -117,25 +91,6 @@ class SessionManager:
             )
         return self._session
 
-    def update_goal(self, new_goal: str, rationale: str = "") -> None:
-        """Update the current goal in the protected core."""
-        session = self.require_session()
-        session.protected_core.key_decisions.append(
-            Decision(
-                decision=f"Goal updated to: {new_goal}",
-                rationale=rationale or "Goal evolution during task execution",
-            )
-        )
-        session.protected_core.current_goal = new_goal
-        session.protected_core.timestamp_updated = datetime.now().isoformat()
-
-    def add_decision(self, decision: str, rationale: str) -> None:
-        """Record a key decision in the protected core."""
-        session = self.require_session()
-        session.protected_core.key_decisions.append(
-            Decision(decision=decision, rationale=rationale)
-        )
-
     def update_salience(self, items: list[str]) -> None:
         """Replace the salience set with a new deduplicated set."""
         session = self.require_session()
@@ -146,7 +101,3 @@ class SessionManager:
         session = self.require_session()
         session.compression_count += 1
         session.total_tokens_saved += tokens_saved
-
-    def reset(self) -> None:
-        """Destroy the current session."""
-        self._session = None
