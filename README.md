@@ -367,7 +367,8 @@ The following strategies are currently implemented and available:
 
 - **Strategy D**: A-MEM Style Agentic Memory ✅  
   `strategies/strategy_d_amem.py` — StrategyD_AMemStyle  
-  Hybrid retrieval (BM25 + semantic embeddings), memory consolidation and evolution
+  Hybrid retrieval (BM25 + semantic embeddings), memory consolidation and evolution  
+  Based on [A-MEM: Agentic Memory for LLM Agents](https://arxiv.org/abs/2502.12110) (Xu et al., 2025)
 
 - **Strategy F**: Protected Core + Goal Re-assertion (Novel) ✅  
   `strategies/strategy_f_protected_core.py` — StrategyF_ProtectedCore  

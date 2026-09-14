@@ -25,8 +25,7 @@ instinct8/main/                        # BASELINE + EVALUATION FRAMEWORK
 ├── strategies/                        # Compression strategy implementations
 ├── templates/                         # Test templates
 │   └── coding/                        # Coding task definitions
-├── data/                              # External datasets
-│   └── A-mem/                         # LoCoMo QA dataset
+├── data/                              # External datasets (Note: A-MEM code removed, see paper)
 ├── docs/                              # Documentation
 ├── results/                           # Evaluation results
 │

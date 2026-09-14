@@ -111,10 +111,14 @@ def run_evaluation(
     """Run evaluation and save results."""
 
     # Load dataset
-    dataset_path = project_root / "data" / "A-mem" / "LoCoMo.json"
+    # Note: The LoCoMo dataset was part of the vendored A-MEM research code,
+    # which has been removed. To use Strategy D (A-MEM), download the dataset from:
+    # https://github.com/WujiangXu/AgenticMemory
+    dataset_path = project_root / "data" / "locomo.json"
     if not dataset_path.exists():
-        print(f"Error: Dataset not found at {dataset_path}")
-        print("Please ensure LoCoMo.json is in the data/A-mem/ directory")
+        print(f"Error: LoCoMo dataset not found at {dataset_path}")
+        print("Strategy D (A-MEM) requires the LoCoMo dataset.")
+        print("Download from: https://github.com/WujiangXu/AgenticMemory")
         return None
 
     # Calculate ratio based on sample count
@@ -381,7 +385,11 @@ def run_ablations(
         print("=" * 60)
 
     # Load dataset
-    dataset_path = project_root / "data" / "A-mem" / "LoCoMo.json"
+    dataset_path = project_root / "data" / "locomo.json"
+    if not dataset_path.exists():
+        print(f"Error: LoCoMo dataset not found at {dataset_path}")
+        print("Download from: https://github.com/WujiangXu/AgenticMemory")
+        return None
     dataset = LoCoMoDataset(str(dataset_path), ratio=1.0)
     total_samples = len(list(dataset))
     ratio = min(1.0, samples / total_samples) if samples else 0.1
