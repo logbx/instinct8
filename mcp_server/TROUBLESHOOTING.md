@@ -12,7 +12,7 @@ pip install instinct8-mcp fails?
 ├─ Error: "No matching distribution found"
 │  └─ Package not yet on PyPI
 │     └─ Install from source:
-│        git clone https://github.com/LoganLiangMay/instinct8.git
+│        git clone https://github.com/logbx/instinct8.git
 │        cd instinct8/mcp_server
 │        pip install -e .
 │
@@ -287,7 +287,7 @@ Look for:
 
 ### Get Help
 
-1. **GitHub Issues**: https://github.com/LoganLiangMay/instinct8/issues
+1. **GitHub Issues**: https://github.com/logbx/instinct8/issues
    - Include diagnostic command outputs
    - Share your config file (remove sensitive data)
    - Describe what you tried
@@ -296,7 +296,7 @@ Look for:
 
 3. **Alternative**: Install from source
    ```bash
-   git clone https://github.com/LoganLiangMay/instinct8.git
+   git clone https://github.com/logbx/instinct8.git
    cd instinct8/mcp_server
    pip install -e .
    ```

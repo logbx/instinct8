@@ -53,7 +53,7 @@ instinct8/main/                        # BASELINE + EVALUATION FRAMEWORK
 ### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/LoganLiangMay/instinct8.git
+git clone https://github.com/logbx/instinct8.git
 cd instinct8/main
 ```
 
@@ -491,5 +491,5 @@ export OPENAI_API_KEY="sk-your-key-here"
 
 ## Support
 
-- **Issues**: https://github.com/LoganLiangMay/instinct8/issues
+- **Issues**: https://github.com/logbx/instinct8/issues
 - **Documentation**: See `docs/` directory

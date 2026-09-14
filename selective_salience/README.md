@@ -21,7 +21,7 @@ pip install selective-salience-compression
 Or install from source:
 
 ```bash
-git clone https://github.com/LoganLiangMay/instinct8.git
+git clone https://github.com/logbx/instinct8.git
 cd instinct8
 pip install -e .
 ```

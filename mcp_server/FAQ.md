@@ -41,7 +41,7 @@ pip install instinct8-mcp
 
 If the package isn't on PyPI yet, install from source:
 ```bash
-git clone https://github.com/LoganLiangMay/instinct8.git
+git clone https://github.com/logbx/instinct8.git
 cd instinct8/mcp_server
 pip install -e .
 ```
@@ -232,7 +232,7 @@ Yes! instinct8 is open source under Apache-2.0 license (main project) and BSL-1.
 
 ### How can I contribute?
 
-- Report bugs: https://github.com/LoganLiangMay/instinct8/issues
+- Report bugs: https://github.com/logbx/instinct8/issues
 - Submit PRs for fixes or features
 - Share usage examples
 - Help with documentation
@@ -285,4 +285,4 @@ instinct8 preserves what matters while reducing size.
 
 ---
 
-**Don't see your question?** Open an issue: https://github.com/LoganLiangMay/instinct8/issues
+**Don't see your question?** Open an issue: https://github.com/logbx/instinct8/issues

@@ -171,7 +171,7 @@ echo '{"mcpServers": {"instinct8": {"command": "instinct8-mcp"}}}' > ~/.claude/c
 
 ## 🆘 Need Help?
 
-- **Issues**: https://github.com/LoganLiangMay/instinct8/issues
+- **Issues**: https://github.com/logbx/instinct8/issues
 - **Discussions**: Coming soon!
 - **Quick Test**: Run the hello world example above
 

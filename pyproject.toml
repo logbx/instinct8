@@ -82,9 +82,9 @@ instinct8-agent = "selective_salience.agent_cli:main"
 instinct8 = "selective_salience.instinct8_cli:main"
 
 [project.urls]
-Homepage = "https://github.com/LoganLiangMay/instinct8"
-Documentation = "https://github.com/LoganLiangMay/instinct8/blob/main/README.md"
-Repository = "https://github.com/LoganLiangMay/instinct8"
+Homepage = "https://github.com/logbx/instinct8"
+Documentation = "https://github.com/logbx/instinct8/blob/main/README.md"
+Repository = "https://github.com/logbx/instinct8"
 
 [tool.setuptools.packages.find]
 where = ["."]
