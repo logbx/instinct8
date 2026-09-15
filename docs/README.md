@@ -34,8 +34,6 @@ Presentation materials and diagrams.
 ### [development/](./development/)
 Development guides and technical setup.
 
-- `OPENROUTER_SETUP.md` — OpenRouter API setup guide
-
 ## Root-Level Docs
 
 - `INSTALLATION.md` — Consolidated installation guide (all methods, troubleshooting)
