@@ -24,7 +24,6 @@ Research documents, analysis, and technical specifications.
 - `granular_constraint_metrics.md` — Granular constraint metrics
 - `metrics_accuracy_verification.md` — Metrics accuracy verification
 - `llm_as_judge_implementation_guide.md` — LLM-as-judge implementation guide
-- `context_compression_middleware_star.md` — Context compression middleware
 - `CODEX_EVALUATION_SETUP.md` — Codex evaluation setup guide
 
 ### [presentations/](./presentations/)
@@ -36,18 +35,15 @@ Presentation materials and diagrams.
 Development guides and technical setup.
 
 - `OPENROUTER_SETUP.md` — OpenRouter API setup guide
-- `TEST_RESULTS.md` — Test results and analysis
 
 ## Root-Level Docs
 
 - `INSTALLATION.md` — Consolidated installation guide (all methods, troubleshooting)
-- `PUBLISHING.md` — PyPI publishing guide (build, test, publish)
 - `TESTING.md` — Testing documentation
 
 ## Quick Navigation
 
 - **New to the project?** Start with [INSTALLATION.md](./INSTALLATION.md)
-- **Need to publish?** See [PUBLISHING.md](./PUBLISHING.md)
 - **Understanding the research?** Browse [research/](./research/)
 - **Preparing a presentation?** Use materials in [presentations/](./presentations/)
 - **Feature details?** See [features/](./features/)
