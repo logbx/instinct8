@@ -31,8 +31,8 @@ dependencies = [
 instinct8-mcp = "instinct8_mcp.server:main"
 
 [project.urls]
-Homepage = "https://github.com/LoganLiangMay/instinct8"
-Repository = "https://github.com/LoganLiangMay/instinct8"
+Homepage = "https://github.com/logbx/instinct8"
+Repository = "https://github.com/logbx/instinct8"
 
 [tool.hatch.build.targets.wheel]
 packages = ["instinct8_mcp"]

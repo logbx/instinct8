@@ -52,7 +52,7 @@ instinct8 --help
 ### Method 3: From Source (Development)
 
 ```bash
-git clone https://github.com/LoganLiangMay/instinct8.git
+git clone https://github.com/logbx/instinct8.git
 cd instinct8
 git submodule update --init
 
@@ -379,4 +379,4 @@ rm -rf ~/.instinct8
 
 - Check the [README](../README.md) for project overview
 - See [Troubleshooting](#troubleshooting) section above
-- Open an issue on GitHub: https://github.com/LoganLiangMay/instinct8/issues
+- Open an issue on GitHub: https://github.com/logbx/instinct8/issues

@@ -78,19 +78,6 @@ Conversation to compress:
 
 Provide a concise 2-3 sentence summary:"""
 
-HALO_SUMMARIZATION_PROMPT = """\
-Summarize this conversation history, focusing on:
-- What progress has been made
-- Key decisions and their outcomes
-- Important context and information discovered
-- What remains to be done
-
-Do NOT include the original goal or constraints in the summary - those are handled separately.
-Be concise and structured.
-
-Conversation history:
-{context}"""
-
 GOAL_COHERENCE_PROMPT = """\
 You are evaluating goal coherence for an AI agent.
 
