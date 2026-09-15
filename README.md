@@ -215,17 +215,11 @@ codex exec "create a FastAPI endpoint"
 ### Run Baseline Evaluation
 
 ```bash
-# Short template (12 turns, 2 compression points)
+# Example: Run baseline evaluation
 python3 -m evaluation.harness \
   --template templates/research-synthesis-001.json \
   --trials 5 \
   --output results/baseline_results.json
-
-# Long template (50 turns, 5 compression points)
-python3 -m evaluation.harness \
-  --template templates/research-synthesis-002-long.json \
-  --trials 5 \
-  --output results/baseline_long_results.json
 ```
 
 ### View Results
@@ -304,20 +298,14 @@ print_verification_report(report)
 
 **Full Evaluation Pipeline (Requires API Keys):**
 ```bash
-# Short template (12 turns, 2 compression points)
+# Example: Run baseline evaluation
 python3 -m evaluation.harness \
   --template templates/research-synthesis-001.json \
   --trials 5 \
   --output results/baseline_results.json
 
-# Long template (50 turns, 5 compression points)
-python3 -m evaluation.harness \
-  --template templates/research-synthesis-002-long.json \
-  --trials 5 \
-  --output results/baseline_long_results.json
-
 # View results
-cat results/baseline_long_results.json | jq '.aggregate_summary'
+cat results/baseline_results.json | jq '.aggregate_summary'
 ```
 
 For complete documentation, see **[docs/TESTING.md](docs/TESTING.md)**.
