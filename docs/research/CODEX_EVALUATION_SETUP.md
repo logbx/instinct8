@@ -34,8 +34,7 @@ instinct8/main/                        # BASELINE + EVALUATION FRAMEWORK
 │   ├── run_comparison_eval.py         # Compare baseline vs modified
 │   ├── run_codex_cli_eval.py          # Evaluate single Codex version
 │   ├── run_eval.py                    # General evaluation runner
-│   ├── run_locomo_eval.py             # LoCoMo QA evaluation
-│   └── run_rigorous_eval.py           # Statistical rigor evaluation
+│   └── run_locomo_eval.py             # LoCoMo QA evaluation
 │
 ├── requirements.txt                   # Python dependencies
 └── README.md                          # Project overview
@@ -210,10 +209,7 @@ For publication-quality results with confidence intervals:
 
 ```bash
 # Multiple runs per sample
-python scripts/run_rigorous_eval.py --dataset locomo --n-runs 5 --ratio 0.1
-
-# With ablation studies
-python scripts/run_rigorous_eval.py --dataset locomo --n-runs 3 --ablations
+python scripts/run_eval.py --rigorous --samples 10
 ```
 
 ---
@@ -400,7 +396,7 @@ Create JSON files in `templates/coding/`:
 | `python scripts/run_eval.py --dataset coding` | Run coding task evaluation |
 | `python scripts/run_eval.py --dataset locomo` | Run LoCoMo QA evaluation |
 | `python scripts/run_locomo_eval.py --ratio 0.1` | Quick LoCoMo test (10%) |
-| `python scripts/run_rigorous_eval.py --n-runs 5` | Statistical evaluation |
+| `python scripts/run_eval.py --rigorous` | Statistical evaluation |
 
 ---
 

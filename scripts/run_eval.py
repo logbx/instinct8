@@ -10,7 +10,6 @@ Features:
 - Multi-run evaluation for statistical rigor
 - Confidence intervals (95% CI)
 - Statistical significance tests
-- Ablation studies
 - Strategy comparisons with effect sizes
 
 Usage:
@@ -28,9 +27,6 @@ Usage:
 
     # Compare strategies with significance tests
     python run_eval.py --compare
-
-    # Run ablation studies
-    python run_eval.py --ablations
 
     # Publication-ready evaluation
     python run_eval.py --rigorous
@@ -71,9 +67,6 @@ from evaluation import (
     calculate_effect_size,
     interpret_effect_size,
     compute_statistical_summary,
-    # Ablation studies
-    AblationRunner,
-    format_ablation_table,
 )
 
 
@@ -367,90 +360,6 @@ def run_comparison(
     return summary
 
 
-def run_ablations(
-    samples: int = 5,
-    model: str = "gpt-4o-mini",
-    output_dir: str = "results",
-    verbose: bool = True,
-):
-    """Run ablation studies on key hyperparameters."""
-
-    if verbose:
-        print("\n" + "=" * 60)
-        print("ABLATION STUDIES")
-        print("=" * 60)
-
-    # Load dataset
-    dataset_path = project_root / "data" / "A-mem" / "LoCoMo.json"
-    dataset = LoCoMoDataset(str(dataset_path), ratio=1.0)
-    total_samples = len(list(dataset))
-    ratio = min(1.0, samples / total_samples) if samples else 0.1
-    dataset = LoCoMoDataset(dataset_path, ratio=ratio)
-
-    # Base configuration
-    base_config = {
-        "model": model,
-        "temperature": 0.0,
-        "retrieval_k": 10,
-    }
-
-    runner = AblationRunner(base_config=base_config, n_runs=1)
-
-    def create_agent(config):
-        agent_config = AgentConfig(
-            model=config.get("model", model),
-            temperature=config.get("temperature", 0.0),
-        )
-        return AMemAgent(agent_config)
-
-    def evaluate(agent, ds):
-        harness = UnifiedHarness(agent, ds)
-        results = harness.run_evaluation(verbose=False)
-        agg = results.aggregate_metrics
-        if "overall" in agg:
-            return {k: v.get("mean", v) if isinstance(v, dict) else v
-                    for k, v in agg["overall"].items()}
-        return {}
-
-    # Run temperature ablation
-    if verbose:
-        print("\n--- Temperature Ablation ---")
-
-    temp_results = runner.run_single_param_ablation(
-        param_name="temperature",
-        values=[0.0, 0.3, 0.5, 0.7],
-        create_agent_fn=create_agent,
-        evaluate_fn=evaluate,
-        dataset=dataset,
-        target_metric="f1",
-        verbose=verbose,
-    )
-
-    if verbose:
-        print(format_ablation_table(temp_results))
-
-    # Save results
-    os.makedirs(output_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filepath = os.path.join(output_dir, f"ablations_{timestamp}.json")
-
-    ablation_output = {
-        "timestamp": timestamp,
-        "base_config": base_config,
-        "samples": samples,
-        "ablations": {
-            "temperature": temp_results.to_dict(),
-        },
-    }
-
-    with open(filepath, "w") as f:
-        json.dump(ablation_output, f, indent=2)
-
-    if verbose:
-        print(f"\nAblation results saved to: {filepath}")
-
-    return ablation_output
-
 
 def run_rigorous(
     samples: int = 10,
@@ -604,7 +513,6 @@ Examples:
   python run_eval.py --strategy recency # Use recency strategy
   python run_eval.py --compare          # Compare all strategies
   python run_eval.py --runs 5           # 5 runs for statistical rigor
-  python run_eval.py --ablations        # Run ablation studies
   python run_eval.py --rigorous         # Full publication-ready eval
 
 Datasets:
@@ -622,7 +530,6 @@ Available strategies:
 
 Evaluation modes:
   --compare      Compare strategies side by side
-  --ablations    Test hyperparameter sensitivity
   --rigorous     Full statistical rigor (multi-run + significance tests)
         """,
     )
@@ -670,11 +577,6 @@ Evaluation modes:
         help="Compare all strategies",
     )
     parser.add_argument(
-        "--ablations", "-a",
-        action="store_true",
-        help="Run ablation studies",
-    )
-    parser.add_argument(
         "--rigorous",
         action="store_true",
         help="Full publication-ready evaluation (multi-run + significance tests)",
@@ -702,13 +604,6 @@ Evaluation modes:
             run_rigorous(
                 samples=samples or 10,
                 runs=args.runs if args.runs > 1 else 3,
-                model=args.model,
-                output_dir=args.output,
-                verbose=verbose,
-            )
-        elif args.ablations:
-            run_ablations(
-                samples=samples or 5,
                 model=args.model,
                 output_dir=args.output,
                 verbose=verbose,
