@@ -44,7 +44,7 @@ def register_tools(mcp_server: Any, session_manager: SessionManager) -> None:
         return json.dumps({
             "status": "initialized",
             "protected_core": {
-                "goal": session.protected_core.current_goal,
+                "goal": session.protected_core.goal,
                 "constraints": session.protected_core.hard_constraints,
             },
             "message": (
@@ -155,7 +155,7 @@ def register_tools(mcp_server: Any, session_manager: SessionManager) -> None:
         state = session_manager.require_session()
         mcp_session = ctx.session
 
-        original_goal = state.protected_core.original_goal
+        original_goal = state.protected_core.goal
         constraints = state.protected_core.hard_constraints
 
         # Goal coherence (always measured)

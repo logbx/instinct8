@@ -257,7 +257,7 @@ async def extract_salience(
     from .sampling import sample_json
 
     state = sm.require_session()
-    goal = state.protected_core.current_goal
+    goal = state.protected_core.goal
     constraints_text = ", ".join(state.protected_core.hard_constraints) or "None"
     context_text = _format_turns(context)
 
@@ -442,8 +442,8 @@ async def measure_behavioral_alignment(
 def _fallback_extract(state: Any) -> list[str]:
     """Extract constraints from stored session state as a safety net."""
     items: list[str] = []
-    if state.protected_core.current_goal:
-        items.append(f"Original Goal: {state.protected_core.current_goal}")
+    if state.protected_core.goal:
+        items.append(f"Goal: {state.protected_core.goal}")
     for c in state.protected_core.hard_constraints:
         items.append(f"Constraint: {c}")
     return items
