@@ -364,10 +364,6 @@ The following strategies are currently implemented and available:
   `strategies/strategy_g_hybrid.py` — StrategyG_Hybrid  
   Knowledge graph + vector embeddings for structured and semantic retrieval
 
-- **Strategy H**: Keyframe Compression ✅  
-  `strategies/strategy_h_keyframe.py` — StrategyH_Keyframe  
-  Periodic goal snapshots with aggressive inter-keyframe compression
-
 - **Strategy H**: Selective Salience (Agent-as-Judge) ✅  
   `strategies/strategy_h_selective_salience.py` — SelectiveSalienceStrategy  
   Model-judged salience extraction with semantic deduplication
