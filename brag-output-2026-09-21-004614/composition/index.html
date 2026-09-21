@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Instinct8 Brag</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Monaco';
+      src: local('Monaco'), local('Menlo'), local('Consolas');
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Scene 1: The Problem Hook */
+    #scene1 {
+      flex-direction: column;
+    }
+
+    .hook-text {
+      font-size: 68px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.3;
+      max-width: 1400px;
+      padding: 0 80px;
+    }
+
+    /* Scene 2: The Drift Visualization */
+    #scene2 {
+      flex-direction: column;
+    }
+
+    .drift-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .label {
+      font-size: 48px;
+      font-weight: 600;
+      color: #f0f0f0;
+    }
+
+    .progress-container {
+      width: 800px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+      width: 80%;
+    }
+
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px;
+      font-weight: 700;
+      color: #ffffff;
+      z-index: 10;
+    }
+
+    .drift-text {
+      font-size: 32px;
+      font-weight: 500;
+      color: #9ca3af;
+    }
+
+    /* Scene 3: The Solution Reveal */
+    #scene3 {
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .headline {
+      font-size: 56px;
+      font-weight: 600;
+      text-align: center;
+      color: #f0f0f0;
+    }
+
+    .quotes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 1400px;
+    }
+
+    .quote-card {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 8px;
+      padding: 24px 32px;
+      font-size: 28px;
+      font-weight: 500;
+      color: #e5e7eb;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+
+    /* Scene 4: The Proof */
+    #scene4 {
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .title {
+      font-size: 52px;
+      font-weight: 600;
+      text-align: center;
+      color: #f0f0f0;
+    }
+
+    .metrics-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 36px;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .checkmark {
+      width: 48px;
+      height: 48px;
+      background: #3b82f6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    /* Scene 5: Call to Action */
+    #scene5 {
+      flex-direction: column;
+    }
+
+    .cta-text {
+      font-size: 72px;
+      font-weight: 600;
+      text-align: center;
+      color: #3b82f6;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="instinct8-brag" data-width="1920" data-height="1080">
+    
+    <!-- Scene 1: The Problem Hook (0-3s) -->
+    <div id="scene1" class="scene clip" data-start="0" data-duration="3">
+      <div id="hook" class="hook-text clip" data-start="0.3" data-duration="2.7">
+        Long-running agents forget what they're doing.
+      </div>
+    </div>
+
+    <!-- Scene 2: The Drift Visualization (3-8s) -->
+    <div id="scene2" class="scene clip" data-start="3" data-duration="5">
+      <div class="drift-container">
+        <div id="coherence-label" class="label">Goal Coherence</div>
+        <div class="progress-container">
+          <div id="progress-bar" class="progress-bar"></div>
+          <div id="progress-text" class="progress-text">80%</div>
+        </div>
+        <div id="drift-text" class="drift-text clip" data-start="5.8" data-duration="2.2">
+          7% drift per compression
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 3: The Solution Reveal (8-14s) -->
+    <div id="scene3" class="scene clip" data-start="8" data-duration="6">
+      <div id="solution-headline" class="headline">Instinct8 asks the agent: What matters?</div>
+      <div class="quotes-container">
+        <div id="quote1" class="quote-card clip" data-start="9.2" data-duration="4.8">
+          "Choose PostgreSQL for relational guarantees"
+        </div>
+        <div id="quote2" class="quote-card clip" data-start="10.2" data-duration="3.8">
+          "Latency must stay under 150ms"
+        </div>
+        <div id="quote3" class="quote-card clip" data-start="11.2" data-duration="2.8">
+          "Cannot use AWS Aurora (compliance)"
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 4: The Proof (14-18s) -->
+    <div id="scene4" class="scene clip" data-start="14" data-duration="4">
+      <div id="proof-title" class="title">Validated with 50-turn benchmarks</div>
+      <div class="metrics-container">
+        <div id="metric1" class="metric">
+          <div class="checkmark">✓</div>
+          <span>7% average goal drift</span>
+        </div>
+        <div id="metric2" class="metric">
+          <div class="checkmark">✓</div>
+          <span>95%+ goal coherence maintained</span>
+        </div>
+        <div id="metric3" class="metric">
+          <div class="checkmark">✓</div>
+          <span>Works with any LLM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 5: Call to Action (18-20s) -->
+    <div id="scene5" class="scene clip" data-start="18" data-duration="2">
+      <div id="cta" class="cta-text">pip install instinct8-mcp</div>
+    </div>
+
+  </div>
+
+  <!-- Audio -->
+  <audio id="music" data-start="0.3" data-duration="19.7" data-volume="0.5" data-fade-in="0.5" data-fade-out="1.5" src="assets/music/track.mp3"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    // Initialize timeline registry
+    window.__timelines = window.__timelines || {};
+    
+    const compositionId = 'instinct8-brag';
+    const totalDuration = 20;
+    
+    // Create main timeline
+    const tl = gsap.timeline({ 
+      paused: true,
+      onUpdate: function() {
+        const time = this.time();
+        
+        // Scene 2: Animate progress bar
+        if (time >= 3 && time < 5.5) {
+          const progress = gsap.utils.mapRange(3, 5.5, 80, 20, time);
+          gsap.set('#progress-bar', { width: progress + '%' });
+          gsap.set('#progress-text', { innerHTML: Math.round(progress) + '%' });
+        } else if (time >= 5.5 && time < 8) {
+          gsap.set('#progress-bar', { width: '20%' });
+          gsap.set('#progress-text', { innerHTML: '20%' });
+        }
+      }
+    });
+
+    // Scene 1: Hook text fade in
+    tl.fromTo('#hook', 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 0.4, ease: 'power2.out' }, 
+      0.3
+    );
+
+    // Scene 2: Elements
+    tl.fromTo('#scene2', 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 0.4, ease: 'power2.out' }, 
+      3
+    );
+
+    // Scene 3: Solution headline and quotes
+    tl.fromTo('#scene3', 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 0.4, ease: 'power2.out' }, 
+      8
+    );
+    
+    tl.fromTo('#quote1', 
+      { opacity: 0, x: -40 }, 
+      { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 
+      9.2
+    );
+    
+    tl.fromTo('#quote2', 
+      { opacity: 0, x: -40 }, 
+      { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 
+      10.2
+    );
+    
+    tl.fromTo('#quote3', 
+      { opacity: 0, x: -40 }, 
+      { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 
+      11.2
+    );
+
+    // Scene 4: Proof
+    tl.fromTo('#scene4', 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 0.4, ease: 'power2.out' }, 
+      14
+    );
+
+    // Scene 5: CTA
+    tl.fromTo('#scene5', 
+      { opacity: 0 }, 
+      { opacity: 1, duration: 0.4, ease: 'power2.out' }, 
+      18
+    );
+
+    // Register timeline
+    window.__timelines[compositionId] = tl;
+
+    // Set total duration
+    tl.totalDuration(totalDuration);
+  </script>
+</body>
+</html>
