@@ -1,0 +1,1 @@
+Long-running LLM agents gradually forget their goals after context compression. Instinct8 prevents this through selective salience extraction — the agent judges what matters and protects it. 7% drift reduction, validated with 50-turn benchmarks. Works as a CLI or MCP server for Claude Code. pip install instinct8-mcp

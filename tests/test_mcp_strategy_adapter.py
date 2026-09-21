@@ -10,7 +10,6 @@ Tests pure assembly functions that don't require live LLM calls:
 import pytest
 
 from mcp_server.instinct8_mcp.session_manager import (
-    Decision,
     ProtectedCore,
     SessionState,
     SessionManager,
@@ -289,7 +288,6 @@ class TestBuildCompressedContext:
             goal="Build REST API",
             constraints=["Use FastAPI", "JWT auth required"],
         )
-        mgr.add_decision("Use PostgreSQL", rationale="Relational model")
         mgr.update_salience(
             [
                 "Endpoint: POST /users",
