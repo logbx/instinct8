@@ -251,6 +251,9 @@ class CodingMetricCalculator:
                 return True, []
             except SyntaxError as e:
                 return False, [f"Line {e.lineno}: {e.msg}"]
+            except ValueError as e:
+                # Python < 3.11.4 raises ValueError (not SyntaxError) for null bytes.
+                return False, [str(e)]
         elif language in ("javascript", "typescript"):
             # Try using node to check syntax
             try:
@@ -392,7 +395,7 @@ class CodingMetricCalculator:
 
             return intersection / union if union > 0 else 0.0
 
-        except SyntaxError:
+        except (SyntaxError, ValueError):
             # Fall back to text similarity
             return self._text_similarity(generated, expected)
 
