@@ -282,8 +282,6 @@ class UnifiedHarness:
         This runs each sample n_runs times, collecting variance statistics
         to provide confidence intervals and capture stochastic variation.
         """
-        from .multi_run_evaluator import MultiRunEvaluator, MultiRunResult
-
         all_sample_results = []
         all_metric_values: Dict[str, List[float]] = {}
 
