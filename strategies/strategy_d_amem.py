@@ -24,10 +24,7 @@ from typing import Any, Dict, List, Optional
 
 from .strategy_base import CompressionStrategy
 
-# Add A-mem to path for imports
-_amem_path = Path(__file__).parent.parent / "A-mem"
-if str(_amem_path) not in sys.path:
-    sys.path.insert(0, str(_amem_path))
+_amem_path = Path(__file__).resolve().parent.parent / "data" / "A-mem"
 
 
 class StrategyD_AMemStyle(CompressionStrategy):
@@ -75,6 +72,9 @@ class StrategyD_AMemStyle(CompressionStrategy):
 
     def _initialize_memory_system(self) -> None:
         """Initialize or reinitialize the memory system."""
+        # Appended so data/A-mem cannot shadow same-named modules elsewhere.
+        if str(_amem_path) not in sys.path:
+            sys.path.append(str(_amem_path))
         try:
             from memory_layer import AgenticMemorySystem
 
