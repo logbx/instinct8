@@ -13,6 +13,9 @@ from .base import AgentConfig, BaseAgent
 
 _amem_path = Path(__file__).resolve().parent.parent.parent / "data" / "A-mem"
 
+# Backends accepted by A-mem's LLMController (data/A-mem/memory_layer.py).
+SUPPORTED_BACKENDS = ("openai", "ollama", "sglang")
+
 
 class AMemAgent(BaseAgent):
     """
@@ -28,7 +31,19 @@ class AMemAgent(BaseAgent):
 
         Args:
             config: Agent configuration including model, backend, and retrieval settings
+
+        Raises:
+            ValueError: If config.backend is not supported by A-mem. Note that the
+                AgentConfig default ("anthropic") is not, so pass e.g.
+                AgentConfig(model="gpt-4o-mini", backend="openai").
         """
+        if config.backend not in SUPPORTED_BACKENDS:
+            raise ValueError(
+                f"AMemAgent does not support backend {config.backend!r}; A-mem only "
+                f"supports {', '.join(map(repr, SUPPORTED_BACKENDS))}. Set "
+                "AgentConfig.backend explicitly, e.g. "
+                "AgentConfig(model='gpt-4o-mini', backend='openai')."
+            )
         self._config = config
         self._turn_count = 0
         self._agent = self._create_agent()
