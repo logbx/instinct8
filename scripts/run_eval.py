@@ -43,6 +43,8 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+LOCOMO_PATH = project_root / "data" / "A-mem" / "data" / "locomo10.json"
+
 from evaluation import (
     # Core evaluation
     UnifiedHarness,
@@ -83,7 +85,7 @@ STRATEGIES = {
 
 def create_agent(strategy_name: str, model: str = "gpt-4o-mini"):
     """Create an agent with the specified strategy."""
-    config = AgentConfig(model=model, temperature=0.0)
+    config = AgentConfig(model=model)
 
     if strategy_name == "amem":
         return AMemAgent(config)
@@ -104,10 +106,10 @@ def run_evaluation(
     """Run evaluation and save results."""
 
     # Load dataset
-    dataset_path = project_root / "data" / "A-mem" / "LoCoMo.json"
+    dataset_path = LOCOMO_PATH
     if not dataset_path.exists():
         print(f"Error: Dataset not found at {dataset_path}")
-        print("Please ensure LoCoMo.json is in the data/A-mem/ directory")
+        print("Please ensure locomo10.json is in the data/A-mem/data/ directory")
         return None
 
     # Calculate ratio based on sample count
