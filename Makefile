@@ -52,7 +52,7 @@ test-integration:
 
 eval-quick:
 	@echo "Running quick evaluation (5 samples)..."
-	python scripts/run_eval.py --dataset locomo --max-samples 5
+	python scripts/run_eval.py --dataset locomo --samples 5
 
 eval-hierarchical:
 	@echo "Running hierarchical compression evaluation..."
@@ -76,7 +76,7 @@ eval-compare:
 
 eval-rigorous:
 	@echo "Running publication-ready evaluation (3 runs per sample)..."
-	python scripts/run_eval.py --rigorous --n-runs 3
+	python scripts/run_eval.py --rigorous --runs 3
 
 # =============================================================================
 # BINARY TESTING (requires Codex CLI installed)

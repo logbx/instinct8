@@ -54,10 +54,10 @@ python scripts/run_eval.py --dataset locomo
 python scripts/run_eval.py --compare
 
 # Publication-ready with statistical rigor
-python scripts/run_eval.py --rigorous --n-runs 3
+python scripts/run_eval.py --rigorous --runs 3
 
 # Quick test (5 samples)
-python scripts/run_eval.py --dataset locomo --max-samples 5
+python scripts/run_eval.py --dataset locomo --samples 5
 ```
 
 **Strategies:** `amem`, `no_compression`, `recency`, `first_last`, `sliding_window`
@@ -267,5 +267,5 @@ python scripts/run_codex_cli_eval.py --codex-path /path/to/codex
 **Tests timing out**
 ```bash
 # Reduce sample count
-python scripts/run_eval.py --max-samples 3
+python scripts/run_eval.py --samples 3
 ```
