@@ -11,10 +11,7 @@ from typing import Any, Dict, List, Optional
 
 from .base import AgentConfig, BaseAgent
 
-# Add A-mem to path for imports
-_amem_path = Path(__file__).parent.parent.parent / "A-mem"
-if str(_amem_path) not in sys.path:
-    sys.path.insert(0, str(_amem_path))
+_amem_path = Path(__file__).resolve().parent.parent.parent / "data" / "A-mem"
 
 
 class AMemAgent(BaseAgent):
@@ -38,7 +35,12 @@ class AMemAgent(BaseAgent):
 
     def _create_agent(self):
         """Create a new advancedMemAgent instance."""
-        # Lazy import to avoid loading heavy dependencies until needed
+        # Lazy import to avoid loading heavy dependencies until needed.
+        # A-mem modules import each other by bare name, and cached memories are
+        # pickled as memory_layer.*, so the directory goes on sys.path (appended
+        # so it cannot shadow same-named modules elsewhere).
+        if str(_amem_path) not in sys.path:
+            sys.path.append(str(_amem_path))
         from test_advanced import advancedMemAgent
 
         return advancedMemAgent(

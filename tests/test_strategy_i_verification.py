@@ -11,8 +11,19 @@ Focuses on:
 """
 
 import pytest
+from strategies.strategy_d_amem import StrategyD_AMemStyle
 from strategies.strategy_i_hybrid_amem_protected import StrategyI_AMemProtectedCore
 from evaluation.token_budget import TokenBudget
+
+
+@pytest.fixture(autouse=True)
+def amem_unavailable(monkeypatch):
+    """Keep the real A-mem memory system (embedding models, LLM calls) out of these tests."""
+    monkeypatch.setattr(
+        StrategyD_AMemStyle,
+        "_initialize_memory_system",
+        lambda self: setattr(self, "_memory_system", None),
+    )
 
 
 class MockLLMClient:

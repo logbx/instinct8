@@ -11,10 +11,7 @@ from typing import Any, Dict, Iterator, List, Optional, Union
 
 from .base import BaseDataset, EvalQuestion, EvalSample, EvalTurn
 
-# Add A-mem to path for imports
-_amem_path = Path(__file__).parent.parent.parent / "A-mem"
-if str(_amem_path) not in sys.path:
-    sys.path.insert(0, str(_amem_path))
+_amem_path = Path(__file__).resolve().parent.parent.parent / "data" / "A-mem"
 
 
 class LoCoMoDataset(BaseDataset):
@@ -53,7 +50,10 @@ class LoCoMoDataset(BaseDataset):
 
     def _load_dataset(self) -> None:
         """Load and convert the LoComo dataset."""
-        # Lazy import to avoid loading dependencies until needed
+        # Lazy import to avoid loading dependencies until needed. Appended so
+        # data/A-mem cannot shadow same-named modules elsewhere on sys.path.
+        if str(_amem_path) not in sys.path:
+            sys.path.append(str(_amem_path))
         from load_dataset import load_locomo_dataset
 
         raw_samples = load_locomo_dataset(self._path)
