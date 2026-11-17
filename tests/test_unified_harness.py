@@ -1093,11 +1093,6 @@ def alternating_qa_answers(agent, question):
 
 
 class TestMultiRun:
-    @pytest.mark.xfail(
-        strict=True,
-        raises=ModuleNotFoundError,
-        reason="evaluation/multi_run_evaluator.py is imported but not present on main",
-    )
     def test_multi_run_without_stub(self):
         harness = make_harness(FakeAgent(), FakeDataset([qa_sample()]))
         results = harness.run_evaluation(n_runs=2, verbose=False)
