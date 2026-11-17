@@ -3,8 +3,10 @@ Smoke tests - basic sanity checks that don't require API keys.
 These tests verify package installation and basic functionality.
 """
 
+import ast
 import pytest
 import sys
+from pathlib import Path
 
 
 def test_python_version():
@@ -68,6 +70,18 @@ def test_dependencies_present():
     major, minor = map(int, st_version.split('.')[:2])
     assert (major > 5) or (major == 5 and minor >= 6), \
         f"sentence-transformers {st_version} is vulnerable to CVE-2026-68770. Upgrade to 5.6.0+"
+
+
+def test_amem_does_not_import_removed_ast_nodes():
+    """A-mem must stay importable on Python 3.14, where these ast aliases were removed."""
+    removed = {"Str", "Num", "Bytes", "NameConstant", "Ellipsis"}
+    amem_dir = Path(__file__).resolve().parent.parent / "data" / "A-mem"
+    offenders = []
+    for path in sorted(amem_dir.glob("*.py")):
+        for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"), filename=str(path))):
+            if isinstance(node, ast.ImportFrom) and node.module == "ast":
+                offenders += [f"{path.name}:{node.lineno} {a.name}" for a in node.names if a.name in removed]
+    assert not offenders, f"Removed ast names imported: {offenders}"
 
 
 if __name__ == "__main__":
