@@ -15,14 +15,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from openai import OpenAI
 from load_dataset import load_locomo_dataset, QA, Turn, Session, Conversation
+from nltk_resources import ensure_nltk_data
 from sentence_transformers.util import pytorch_cos_sim
-
-# Download required NLTK data
-try:
-    nltk.download('punkt', quiet=True)
-    nltk.download('wordnet', quiet=True)
-except Exception as e:
-    print(f"Error downloading NLTK data: {e}")
 
 # Initialize SentenceTransformer model (this will be reused)
 try:
@@ -49,6 +43,7 @@ def calculate_rouge_scores(prediction: str, reference: str) -> Dict[str, float]:
 
 def calculate_bleu_scores(prediction: str, reference: str) -> Dict[str, float]:
     """Calculate BLEU scores with different n-gram settings."""
+    ensure_nltk_data("punkt")
     pred_tokens = nltk.word_tokenize(prediction.lower())
     ref_tokens = [nltk.word_tokenize(reference.lower())]
     
@@ -84,6 +79,7 @@ def calculate_bert_scores(prediction: str, reference: str) -> Dict[str, float]:
 
 def calculate_meteor_score(prediction: str, reference: str) -> float:
     """Calculate METEOR score for the prediction."""
+    ensure_nltk_data("wordnet")
     try:
         return meteor_score([reference.split()], prediction.split())
     except Exception as e:

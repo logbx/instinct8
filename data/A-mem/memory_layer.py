@@ -11,6 +11,7 @@ import os
 from abc import ABC, abstractmethod
 from transformers import AutoModel, AutoTokenizer
 from nltk.tokenize import word_tokenize
+from nltk_resources import ensure_nltk_data
 import pickle
 from pathlib import Path
 from litellm import completion
@@ -19,6 +20,7 @@ import json as json_lib
 import time
 
 def simple_tokenize(text):
+    ensure_nltk_data("punkt")
     return word_tokenize(text)
 
 class BaseLLMController(ABC):
