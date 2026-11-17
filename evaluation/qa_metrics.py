@@ -5,16 +5,18 @@ This module wraps the A-mem utils.py metric functions to conform
 to the unified MetricCalculator interface.
 """
 
+import importlib.util
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .metric_interfaces import MetricCalculator, MetricResult, MetricType
 
-# Add A-mem to path for imports
-_amem_path = Path(__file__).parent.parent / "A-mem"
-if str(_amem_path) not in sys.path:
-    sys.path.insert(0, str(_amem_path))
+_amem_path = Path(__file__).resolve().parent.parent / "data" / "A-mem"
+
+# Loaded under a private name so neither an unrelated top-level `utils` module
+# nor A-mem's own utils.py can shadow the other in sys.modules.
+_AMEM_UTILS_MODULE = "_amem_utils"
 
 # Lazy imports to avoid loading heavy dependencies until needed
 _utils_loaded = False
@@ -35,27 +37,36 @@ def _load_amem_utils():
     if _utils_loaded:
         return
 
+    utils_file = _amem_path / "utils.py"
     try:
-        from utils import (
-            calculate_bert_scores,
-            calculate_bleu_scores,
-            calculate_meteor_score,
-            calculate_rouge_scores,
-            calculate_sentence_similarity,
-            simple_tokenize,
-        )
+        if not utils_file.is_file():
+            raise ImportError(f"{utils_file} not found")
 
-        _calculate_rouge_scores = calculate_rouge_scores
-        _calculate_bleu_scores = calculate_bleu_scores
-        _calculate_bert_scores = calculate_bert_scores
-        _calculate_meteor_score = calculate_meteor_score
-        _calculate_sentence_similarity = calculate_sentence_similarity
-        _simple_tokenize = simple_tokenize
+        # utils.py does `from load_dataset import ...`, so its directory must be
+        # importable. Appended so it cannot shadow same-named modules elsewhere.
+        if str(_amem_path) not in sys.path:
+            sys.path.append(str(_amem_path))
+
+        spec = importlib.util.spec_from_file_location(_AMEM_UTILS_MODULE, utils_file)
+        utils = importlib.util.module_from_spec(spec)
+        sys.modules[_AMEM_UTILS_MODULE] = utils
+        try:
+            spec.loader.exec_module(utils)
+        except BaseException:
+            sys.modules.pop(_AMEM_UTILS_MODULE, None)
+            raise
+
+        _calculate_rouge_scores = utils.calculate_rouge_scores
+        _calculate_bleu_scores = utils.calculate_bleu_scores
+        _calculate_bert_scores = utils.calculate_bert_scores
+        _calculate_meteor_score = utils.calculate_meteor_score
+        _calculate_sentence_similarity = utils.calculate_sentence_similarity
+        _simple_tokenize = utils.simple_tokenize
         _utils_loaded = True
-    except ImportError as e:
+    except (ImportError, AttributeError) as e:
         raise ImportError(
             f"Could not import A-mem utils. Ensure A-mem dependencies are installed: {e}"
-        )
+        ) from e
 
 
 class QAMetricCalculator:
