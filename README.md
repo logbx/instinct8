@@ -194,7 +194,7 @@ pip install -e ".[all]"
 **Installation Options:**
 - `pip install -e .` - Core functionality only (minimal dependencies)
 - `pip install -e ".[dev]"` - Adds testing tools (pytest, mypy)
-- `pip install -e ".[eval]"` - Adds LLM providers for evaluation (anthropic, litellm)
+- `pip install -e ".[eval]"` - Adds LLM providers and A-MEM retrieval for evaluation (anthropic, litellm, rank-bm25)
 - `pip install -e ".[metrics]"` - Adds evaluation metrics (BERT-score, ROUGE)
 - `pip install -e ".[data]"` - Adds data processing utilities (pandas, scipy)
 - `pip install -e ".[heavy]"` - Adds heavy ML frameworks (torch, transformers)
