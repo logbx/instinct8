@@ -1,22 +1,24 @@
 """
 Compression Agent Adapter
 
-This module wraps the existing MockAgent to conform to the BaseAgent interface.
+This module adapts a CompressionStrategy to the BaseAgent interface.
 """
 
 from typing import Any, Dict, List, Optional
 
 from strategies import CompressionStrategy
+from strategies.strategy_b_codex import LLMClient, _create_llm_client
 
 from .base import AgentConfig, BaseAgent
 
 
 class CompressionAgent(BaseAgent):
     """
-    Adapter wrapping the existing MockAgent for the unified interface.
+    Agent whose context is managed by a CompressionStrategy.
 
-    This agent uses a CompressionStrategy to manage context and performs
-    compression at designated trigger points.
+    Turns accumulate in context until compress() replaces them with the
+    strategy's compressed output. Questions are answered by an LLM over the
+    current (possibly compressed) context.
     """
 
     def __init__(self, config: AgentConfig, strategy: CompressionStrategy):
@@ -27,22 +29,15 @@ class CompressionAgent(BaseAgent):
             config: Agent configuration
             strategy: The compression strategy to use
         """
-        # Import MockAgent here to avoid circular imports
-        from evaluation.harness import MockAgent
-
         self._config = config
         self._strategy = strategy
-        self._mock_agent = MockAgent(
-            strategy=strategy,
-            system_prompt=config.system_prompt,
-            original_goal=config.original_goal,
-            constraints=config.constraints,
-            model=config.model,
-        )
+        self._llm_client: Optional[LLMClient] = None
+        self._context: List[Dict[str, Any]] = []
+        self._total_tokens = 0
+        self._strategy.initialize(config.original_goal, config.constraints)
 
     def ingest_turn(self, turn: Dict[str, Any]) -> None:
         """Add a turn to the agent's context."""
-        # Convert to expected format if needed
         formatted_turn = {
             "id": turn.get("id", turn.get("turn_id", 0)),
             "role": turn.get("role", "user"),
@@ -50,7 +45,9 @@ class CompressionAgent(BaseAgent):
             "is_compression_point": turn.get("is_compression_point", False),
             "tool_call": turn.get("tool_call"),
         }
-        self._mock_agent.add_turn(formatted_turn)
+        self._context.append(formatted_turn)
+        # Approximate: ~4 chars per token
+        self._total_tokens += len(formatted_turn["content"]) // 4
 
     def answer_question(
         self,
@@ -69,20 +66,46 @@ class CompressionAgent(BaseAgent):
         Returns:
             The agent's response
         """
-        return self._mock_agent.call(question)
+        if self._llm_client is None:
+            self._llm_client = _create_llm_client(self._config.backend, self._config.model)
+
+        context_text = "\n\n".join(
+            f"[{turn.get('role', 'unknown')}]: {turn.get('content', '')}"
+            for turn in self._context
+        )
+        prompt = f"Context:\n{context_text}\n\n---\n\nQuestion: {question}"
+        if self._config.system_prompt:
+            prompt = f"{self._config.system_prompt}\n\n{prompt}"
+
+        try:
+            return self._llm_client.complete(prompt, max_tokens=300) or "(error: empty response)"
+        except Exception as e:
+            print(f"[{self.name}] Error calling LLM: {e}")
+            return f"(error: {e})"
 
     def get_context_size(self) -> int:
         """Get approximate token count of current context."""
-        return self._mock_agent.get_token_count()
+        return self._total_tokens
 
     def compress(self, trigger_point: Optional[int] = None) -> None:
         """Compress the context using the configured strategy."""
-        self._mock_agent.compress(trigger_point or 0)
+        if trigger_point is None:
+            trigger_point = len(self._context)
+        compressed = self._strategy.compress(self._context, trigger_point)
+        self._context = [
+            {
+                "id": 0,
+                "role": "system",
+                "content": compressed,
+                "is_compression_point": False,
+            }
+        ]
+        self._total_tokens = len(compressed) // 4
 
     def reset(self) -> None:
         """Reset the agent for a new evaluation sample."""
-        self._mock_agent.context = []
-        self._mock_agent.total_tokens = 0
+        self._context = []
+        self._total_tokens = 0
         self._strategy.initialize(
             self._config.original_goal,
             self._config.constraints,
@@ -92,8 +115,6 @@ class CompressionAgent(BaseAgent):
         """Initialize goal and constraints for the strategy."""
         self._config.original_goal = goal
         self._config.constraints = constraints
-        self._mock_agent.original_goal = goal
-        self._mock_agent.constraints = constraints
         self._strategy.initialize(goal, constraints)
 
     @property
@@ -109,4 +130,4 @@ class CompressionAgent(BaseAgent):
     @property
     def context(self) -> List[Dict[str, Any]]:
         """Access the current context."""
-        return self._mock_agent.context
+        return self._context
